@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Industrial Equipment Failure Prediction | Explainable NLP Maintenance</title>
+  <link rel="stylesheet" href="/css/style.css?v=2.2">
+  <!-- Chart.js for interactive visualizations -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="#dashboard" class="brand" data-view="dashboard">
+        <div class="brand-icon">
+          <!-- Industrial precision gear & NLP document icon -->
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>Industrial Failure Prediction</h1>
+          <span>Sustainable Maintenance AI</span>
+        </div>
+      </a>
+
+      <!-- Navigation Links -->
+      <ul class="nav-links">
+        <li><a href="#dashboard" class="nav-link active" data-view="dashboard">Dashboard</a></li>
+        <li><a href="#predict" class="nav-link" data-view="predict">Analyse Maintenance Report</a></li>
+        <li><a href="#dataset" class="nav-link" data-view="dataset">Dataset</a></li>
+        <li><a href="#performance" class="nav-link" data-view="performance">Model Performance</a></li>
+        <li><a href="#about" class="nav-link" data-view="about">About Project</a></li>
+      </ul>
+
+      <!-- System Status Indicator -->
+      <div class="nav-status">
+        <span class="status-dot"></span>
+        <span>NLP Pipeline Online</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content Wrapper -->
+  <main class="main-content">
+    <div id="toast-container" style="position: fixed; top: 85px; right: 24px; z-index: 999; max-width: 380px;"></div>
+
+    <!-- =================================================================== -->
+    <!-- VIEW 1: DASHBOARD                                                   -->
+    <!-- =================================================================== -->
+    <section id="view-dashboard" class="view-section active">
+      <!-- =============================================================== -->
+      <!-- 1. HERO SECTION                                                 -->
+      <!-- =============================================================== -->
+      <div class="dashboard-hero">
+        <div class="hero-text-block">
+          <span class="hero-eyebrow">INDUSTRIAL MAINTENANCE INTELLIGENCE</span>
+          <h1 class="hero-title">Intelligent Maintenance Analysis</h1>
+          <p class="hero-description">
+            Analyse technician-written maintenance observations using Natural Language Processing and Machine Learning to identify possible equipment failure categories and support informed maintenance decisions.
+          </p>
+          <div class="hero-actions">
+            <button type="button" class="btn btn-primary" data-goto="predict">
+              Analyse Maintenance Report
+            </button>
+            <button type="button" class="btn btn-secondary" data-goto="about">
+              Explore Project
+            </button>
+          </div>
+        </div>
+
+        <div class="hero-illustration-block">
+          <svg viewBox="0 0 440 280" fill="none" xmlns="http://www.w3.org/2000/svg" class="hero-svg">
+            <!-- Soft Background Surface -->
+            <rect width="440" height="280" rx="12" fill="#f8fafc" />
+            
+            <!-- Factory Architectural Perspective Framing -->
+            <line x1="80" y1="20" x2="80" y2="230" stroke="#e2e8f0" stroke-width="1.5" stroke-dasharray="3 3" />
+            <line x1="200" y1="20" x2="200" y2="230" stroke="#e2e8f0" stroke-width="1.5" stroke-dasharray="3 3" />
+            <line x1="320" y1="20" x2="320" y2="230" stroke="#e2e8f0" stroke-width="1.5" stroke-dasharray="3 3" />
+            
+            <!-- Factory Floor & Machine Pedestal -->
+            <rect x="30" y="230" width="380" height="8" rx="4" fill="#cbd5e1" />
+            <rect x="50" y="226" width="160" height="6" rx="3" fill="#94a3b8" />
+
+            <!-- Industrial Machinery Unit (Left & Center) -->
+            <rect x="55" y="125" width="145" height="105" rx="6" fill="#1e293b" />
+            <rect x="65" y="135" width="60" height="85" rx="4" fill="#2563eb" />
+            <rect x="75" y="145" width="40" height="65" rx="3" fill="#1d4ed8" />
+            
+            <!-- Precision Ventilation Slots / Louvers -->
+            <line x1="82" y1="158" x2="108" y2="158" stroke="#93c5fd" stroke-width="2.5" stroke-linecap="round" />
+            <line x1="82" y1="168" x2="108" y2="168" stroke="#93c5fd" stroke-width="2.5" stroke-linecap="round" />
+            <line x1="82" y1="178" x2="108" y2="178" stroke="#93c5fd" stroke-width="2.5" stroke-linecap="round" />
+            <line x1="82" y1="188" x2="108" y2="188" stroke="#93c5fd" stroke-width="2.5" stroke-linecap="round" />
+            <line x1="82" y1="198" x2="108" y2="198" stroke="#93c5fd" stroke-width="2.5" stroke-linecap="round" />
+
+            <!-- Machine Access Panel & Fasteners -->
+            <rect x="135" y="140" width="55" height="75" rx="3" fill="#334155" />
+            <circle cx="142" cy="148" r="2.5" fill="#64748b" />
+            <circle cx="182" cy="148" r="2.5" fill="#64748b" />
+            <circle cx="142" cy="207" r="2.5" fill="#64748b" />
+            <circle cx="182" cy="207" r="2.5" fill="#64748b" />
+            <rect x="146" y="160" width="32" height="35" rx="2" fill="#1e293b" />
+            
+            <!-- Equipment Power & Operational Indicator -->
+            <circle cx="162" cy="177" r="5" fill="#3b82f6" />
+            <circle cx="162" cy="177" r="8" stroke="#38bdf8" stroke-width="1.5" opacity="0.6" />
+
+            <!-- Industrial Drive Shaft & Coupler -->
+            <rect x="200" y="165" width="22" height="30" rx="2" fill="#64748b" />
+            <rect x="204" y="160" width="14" height="40" rx="1.5" fill="#94a3b8" />
+
+            <!-- Maintenance Engineer (Inspecting Machinery) -->
+            <!-- Work Trousers & Safety Boots -->
+            <path d="M295 195 L290 235 H306 L312 195" fill="#1e3a8a" />
+            <path d="M315 195 L320 235 H336 L330 195" fill="#1e3a8a" />
+            <rect x="285" y="233" width="23" height="6" rx="3" fill="#334155" />
+            <rect x="318" y="233" width="23" height="6" rx="3" fill="#334155" />
+
+            <!-- Torso & Industrial Uniform -->
+            <path d="M288 135 L282 200 H338 L332 135 Z" fill="#2563eb" />
+            <!-- High-Visibility Reflective Stripes -->
+            <path d="M286 156 H334" stroke="#bfdbfe" stroke-width="3.5" />
+            <path d="M284 178 H336" stroke="#bfdbfe" stroke-width="3.5" />
+
+            <!-- Head & White Hard Hat -->
+            <circle cx="308" cy="105" r="14" fill="#fed7aa" />
+            <path d="M291 100 C291 85, 325 85, 325 100 Z" fill="#ffffff" stroke="#2563eb" stroke-width="1.5" />
+            <rect x="287" y="99" width="42" height="4" rx="2" fill="#2563eb" />
+            <circle cx="308" cy="92" r="2.5" fill="#38bdf8" />
+            <!-- Safety Glasses -->
+            <rect x="298" y="102" width="15" height="5" rx="1.5" fill="#38bdf8" opacity="0.75" />
+
+            <!-- Arms Supporting Digital Tablet -->
+            <path d="M288 140 L265 158 L275 170" stroke="#1d4ed8" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M330 140 L308 162 L290 170" stroke="#1e40af" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
+
+            <!-- Digital Tablet: Subtle Maintenance Report Review -->
+            <rect x="245" y="132" width="60" height="46" rx="5" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" />
+            <rect x="249" y="136" width="52" height="38" rx="3" fill="#0f172a" />
+            <!-- Text Lines & Status on Screen -->
+            <rect x="254" y="142" width="22" height="3" rx="1" fill="#38bdf8" />
+            <circle cx="294" cy="143" r="2" fill="#10b981" />
+            <line x1="254" y1="150" x2="292" y2="150" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" />
+            <line x1="254" y1="156" x2="286" y2="156" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" />
+            <line x1="254" y1="162" x2="290" y2="162" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" />
+
+            <!-- Subtle Floating Inspection Interface Card -->
+            <g transform="translate(265, 24)">
+              <rect width="150" height="46" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1" />
+              <circle cx="22" cy="23" r="11" fill="#eff6ff" />
+              <path d="M18 20 H26 M18 23 H24 M18 26 H22" stroke="#2563eb" stroke-width="1.5" stroke-linecap="round" />
+              <text x="42" y="20" fill="#0f172a" font-size="10" font-weight="700" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Observation Report</text>
+              <text x="42" y="33" fill="#2563eb" font-size="8.5" font-weight="600" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">AI Maintenance Support</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <!-- =============================================================== -->
+      <!-- 2. KEY APPLICATION CAPABILITIES                                 -->
+      <!-- =============================================================== -->
+      <div class="dashboard-section">
+        <h2 class="section-title">Designed for Smarter Maintenance Decisions</h2>
+
+        <div class="capabilities-grid-3">
+          <!-- CARD 1: Intelligent Text Analysis -->
+          <div class="capability-card">
+            <div class="capability-icon-box">
+              <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </div>
+            <h3>Intelligent Text Analysis</h3>
+            <p>Processes English technician observations and identifies important equipment symptoms using Natural Language Processing.</p>
+          </div>
+
+          <!-- CARD 2: Explainable Failure Prediction -->
+          <div class="capability-card">
+            <div class="capability-icon-box">
+              <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+              </svg>
+            </div>
+            <h3>Explainable Failure Prediction</h3>
+            <p>Predicts possible equipment failure categories and highlights important words influencing the model's prediction.</p>
+          </div>
+
+          <!-- CARD 3: Professional Maintenance Reports -->
+          <div class="capability-card">
+            <div class="capability-icon-box">
+              <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <h3>Professional Maintenance Reports</h3>
+            <p>Generates downloadable PDF reports containing technician observations, prediction results, explanations and suggested inspection actions.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- =============================================================== -->
+      <!-- 3. FINAL CALL-TO-ACTION SECTION                                 -->
+      <!-- =============================================================== -->
+      <div class="dashboard-cta-compact">
+        <div class="cta-text">
+          <h3>Ready to Analyse an Equipment Inspection?</h3>
+          <p>Submit an English maintenance observation to identify possible failure categories and generate a detailed maintenance report.</p>
+        </div>
+        <button type="button" class="btn btn-primary" data-goto="predict">
+          Start Analysis
+        </button>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- VIEW 2: ANALYSE MAINTENANCE REPORT                                  -->
+    <!-- =================================================================== -->
+    <section id="view-predict" class="view-section">
+      <div class="page-header">
+        <h2>Maintenance Report Analysis</h2>
+        <p>Enter the machine inspection observations in English to identify possible equipment failure categories, inspect influential words, and generate a downloadable PDF report.</p>
+      </div>
+
+      <div class="predict-layout">
+        <!-- Input Form Card -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Machine Information & Inspection Report</div>
+          </div>
+
+          <!-- Quick Presets -->
+          <div class="presets-container">
+            <div class="presets-title">Quick Evaluation Presets (Real Maintenance Profiles):</div>
+            <div class="preset-pills">
+              <button type="button" class="preset-btn" data-preset="noise_vib">Noise & Vibration</button>
+              <button type="button" class="preset-btn" data-preset="leak">Fluid Seal Leakage</button>
+              <button type="button" class="preset-btn" data-preset="elec">Electrical Tripping</button>
+              <button type="button" class="preset-btn" data-preset="overheat">Thermal Overheating</button>
+              <button type="button" class="preset-btn" data-preset="plugged">Choked / Blocked Line</button>
+              <button type="button" class="preset-btn" data-preset="structural">Corrosion & Cracks</button>
+            </div>
+          </div>
+
+          <form id="predict-form">
+            <!-- Machine Metadata Inputs -->
+            <div class="form-row-2">
+              <div class="form-group">
+                <label class="form-label" for="input-machine-id">Machine ID</label>
+                <input type="text" id="input-machine-id" class="form-input" placeholder="e.g. MCH-101" value="MCH-101" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="input-machine-name">Machine Name</label>
+                <input type="text" id="input-machine-name" class="form-input" placeholder="e.g. Centrifugal Slurry Pump #1" value="Centrifugal Slurry Pump #1" required>
+              </div>
+            </div>
+
+            <div class="form-row-2">
+              <div class="form-group">
+                <label class="form-label" for="input-equipment-type">Equipment Type</label>
+                <input type="text" id="input-equipment-type" class="form-input" placeholder="e.g. Centrifugal Pump" value="Centrifugal Pump" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="input-inspection-date">Inspection Date</label>
+                <input type="date" id="input-inspection-date" class="form-input" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="input-technician">Technician Name or Badge ID</label>
+              <input type="text" id="input-technician" class="form-input" placeholder="e.g. Tech Alex Morgan (ID: TM-410)" value="Tech Alex Morgan (ID: TM-410)" required>
+            </div>
+
+            <!-- Technician's Observation Textarea -->
+            <div class="form-group">
+              <label class="form-label" for="input-observation">
+                <span>Technician's Written Observation</span>
+                <span class="form-hint">Natural English observation</span>
+              </label>
+              <textarea id="input-observation" class="form-textarea" placeholder="Example: Machine produces unusual noise during operation. Temperature is higher than normal, vibration is increasing and the belt appears loose." required>Machine 1 produces extreme noise during operation. Temperature is higher than normal, vibration is increasing and the belt appears loose.</textarea>
+              <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.35rem;">
+                Please describe the observed equipment symptoms clearly in English.
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" id="btn-run-predict" class="btn btn-primary" style="flex: 2;">
+                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                </svg>
+                Analyse Report
+              </button>
+              <button type="button" id="btn-clear-predict" class="btn btn-secondary" style="flex: 1;">
+                Clear
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Prediction Result Container -->
+        <div id="result-container">
+          <div class="result-empty-state">
+            <div class="result-empty-icon">
+              <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </div>
+            <h3>Awaiting Maintenance Report</h3>
+            <p>Enter the machine inspection observation on the left or select an evaluation preset, then click <strong>Analyse Report</strong>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- VIEW 3: DATASET EXPLORER                                            -->
+    <!-- =================================================================== -->
+    <section id="view-dataset" class="view-section">
+      <div class="page-header">
+        <h2>FMC-MWO2KG Maintenance Dataset Explorer</h2>
+        <p>Search, filter, and inspect the 626 benchmark maintenance work order observations. Original split files (train.txt, dev.txt, test.txt) are strictly preserved in read-only mode.</p>
+      </div>
+
+      <!-- Dataset Metadata Bar -->
+      <div class="metrics-grid-4" style="margin-bottom: 1.5rem;">
+        <div class="metric-card">
+          <div class="metric-data">
+            <h4>Dataset Benchmark</h4>
+            <div style="font-size: 1.05rem; font-weight: 700; color: var(--text-primary);">FMC-MWO2KG</div>
+            <div class="metric-footnote">Source: FMC Technologies MWO Corpus</div>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-data">
+            <h4>Total Records</h4>
+            <div class="metric-value">626</div>
+            <div class="metric-footnote">0 Missing Values Detected</div>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-data">
+            <h4>Target Classes</h4>
+            <div class="metric-value">22</div>
+            <div class="metric-footnote">Granular Failure Modes</div>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-data">
+            <h4>Dataset Partitions</h4>
+            <div style="font-size: 1.05rem; font-weight: 700; color: var(--text-primary);">Train / Dev / Test</div>
+            <div class="metric-footnote">502 Train &bull; 62 Dev &bull; 62 Test</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filter Toolbar -->
+      <div class="table-filter-toolbar">
+        <div class="search-input-wrap">
+          <input type="text" id="dataset-search" class="form-input" placeholder="Search observation text (e.g. vibration, leak, tripped)...">
+        </div>
+
+        <select id="filter-split" class="form-select" style="width: auto;">
+          <option value="ALL">All Splits (626)</option>
+          <option value="Train">Train Split (502)</option>
+          <option value="Dev">Dev / Val (62)</option>
+          <option value="Test">Holdout Test (62)</option>
+        </select>
+
+        <select id="filter-category" class="form-select" style="width: auto;">
+          <option value="ALL">All Failure Categories (22)</option>
+          <option value="Minor in-service problems">Minor in-service problems</option>
+          <option value="Breakdown">Breakdown</option>
+          <option value="Structural deficiency">Structural deficiency</option>
+          <option value="Electrical">Electrical</option>
+          <option value="Plugged / choked">Plugged / choked</option>
+          <option value="Leaking">Leaking</option>
+          <option value="Failure to start on demand">Failure to start on demand</option>
+          <option value="Abnormal instrument reading">Abnormal instrument reading</option>
+          <option value="Fail to function">Fail to function</option>
+          <option value="Low output">Low output</option>
+          <option value="Vibration">Vibration</option>
+          <option value="Overheating">Overheating</option>
+          <option value="Noise">Noise</option>
+          <option value="Contamination">Contamination</option>
+          <option value="Failure to stop on demand">Failure to stop on demand</option>
+          <option value="Erratic output">Erratic output</option>
+          <option value="Spurious stop">Spurious stop</option>
+          <option value="High output">High output</option>
+          <option value="Fail to close">Fail to close</option>
+          <option value="Failure to rotate">Failure to rotate</option>
+          <option value="Fail to open">Fail to open</option>
+          <option value="Other">Other</option>
+        </select>
+
+        <select id="filter-page-size" class="form-select" style="width: auto;">
+          <option value="10">10 per page</option>
+          <option value="20" selected>20 per page</option>
+          <option value="50">50 per page</option>
+          <option value="100">100 per page</option>
+        </select>
+
+        <button type="button" id="btn-reset-filters" class="btn btn-secondary btn-sm">Reset</button>
+      </div>
+
+      <!-- Paginated Table -->
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 110px;">Record ID</th>
+              <th style="width: 100px;">Split</th>
+              <th>Technician Maintenance Observation</th>
+              <th style="width: 240px;">Failure Category</th>
+            </tr>
+          </thead>
+          <tbody id="dataset-table-body">
+            <tr><td colspan="4" style="text-align: center; padding: 2rem;">Loading dataset observations...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination Controls -->
+      <div class="table-pagination">
+        <div id="pagination-summary" class="pagination-info">Showing records...</div>
+        <div class="pagination-controls">
+          <button type="button" id="btn-prev-page" class="btn btn-secondary btn-sm">&larr; Previous</button>
+          <span id="current-page-label" style="font-size: 0.88rem; font-weight: 600; padding: 0 0.5rem;">Page 1</span>
+          <button type="button" id="btn-next-page" class="btn btn-secondary btn-sm">Next &rarr;</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- VIEW 4: MODEL PERFORMANCE                                           -->
+    <!-- =================================================================== -->
+    <section id="view-performance" class="view-section">
+      <div class="page-header" style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <h2>Model Performance & Academic Evaluation</h2>
+          <p>Evaluation results computed on 62 unseen test samples (test.txt) using TF-IDF + Balanced Logistic Regression. Original splits strictly preserved without leakage.</p>
+        </div>
+        <button type="button" id="btn-retrain-models" class="btn btn-outline-primary">
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
+          Retrain NLP Model from train.txt
+        </button>
+      </div>
+
+      <!-- 6 Metric Cards -->
+      <div class="metrics-grid-4" style="margin-bottom: 1.5rem;">
+        <div class="metric-card">
+          <div class="metric-data">
+            <h4>Test Accuracy</h4>
+            <div id="perf-accuracy" class="metric-value">--%</div>
+            <div class="metric-footnote">Holdout test set (62 samples)</div>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-data">
+            <h4>Macro F1-Score</h4>
+            <div id="perf-macro-f1" class="metric-value">--</div>
+            <div class="metric-footnote">Unweighted average across 22 classes</div>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-data">
+            <h4>Weighted F1-Score</h4>
+            <div id="perf-weighted-f1" class="metric-value">--</div>
+            <div class="metric-footnote">Frequency-weighted test average</div>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-data">
+            <h4>Macro Precision</h4>
+            <div id="perf-macro-prec" class="metric-value">--</div>
+            <div class="metric-footnote">Macro average precision</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="metrics-grid-4" style="margin-bottom: 2rem;">
+        <div class="metric-card">
+          <div class="metric-data">
+            <h4>Macro Recall</h4>
+            <div id="perf-macro-rec" class="metric-value">--</div>
+            <div class="metric-footnote">Macro average sensitivity</div>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-data">
+            <h4>Dev (Validation) Accuracy</h4>
+            <div id="perf-dev-acc" class="metric-value">--%</div>
+            <div class="metric-footnote">dev.txt validation split (62 samples)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Per-Category Classification Report Table -->
+      <div class="card" style="margin-bottom: 2rem;">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Per-Category Classification Report (Holdout Test Set)</div>
+            <div class="card-subtitle">Detailed Precision, Recall, and F1-Score metrics per failure category</div>
+          </div>
+          <span class="badge badge-neutral">TF-IDF + Logistic Regression</span>
+        </div>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Failure Category</th>
+                <th>Test Precision</th>
+                <th>Test Recall</th>
+                <th>Test F1-Score</th>
+                <th>Test Support</th>
+              </tr>
+            </thead>
+            <tbody id="perf-report-tbody">
+              <tr><td colspan="5" style="text-align: center; padding: 1.5rem;">Loading classification metrics...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Multi-Class Confusion Matrix -->
+      <div class="card" style="margin-bottom: 2rem;">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Multi-Class Confusion Matrix (Actual vs. Predicted)</div>
+            <div class="card-subtitle">Diagonal cells indicate correct classifications across 62 holdout test observations</div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table id="perf-cm-table" class="matrix-table" style="background: #ffffff;">
+            <!-- Generated dynamically -->
+          </table>
+        </div>
+      </div>
+
+      <!-- NLP Methodology Card -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">NLP Methodology & Machine Learning Approach</div>
+        </div>
+        <div style="font-size: 0.92rem; color: var(--text-secondary); line-height: 1.6;">
+          <p style="margin-bottom: 0.75rem;">
+            <strong>1. Text Preprocessing & Negation Preservation:</strong> Maintenance text is normalized through contraction expansion (e.g. <em>"wont" &rarr; "will not"</em>) and domain abbreviation normalization (e.g. <em>"corr" &rarr; "corrosion", "temp" &rarr; "temperature"</em>). Critical negation terms (<em>no, not, never, unable, failed</em>) are explicitly preserved because their absence fundamentally alters failure semantics (e.g. <em>"will not start"</em> vs <em>"start"</em>).
+          </p>
+          <p style="margin-bottom: 0.75rem;">
+            <strong>2. TF-IDF Feature Extraction:</strong> Observations are vectorized using unigrams and bigrams with sublinear term-frequency scaling. This captures both standalone diagnostic keywords (e.g. <em>"vibration", "leak"</em>) and crucial phrasal combinations (e.g. <em>"no power", "over heating", "high resistance"</em>).
+          </p>
+          <p style="margin-bottom: 0.75rem;">
+            <strong>3. Class Imbalance Mitigation:</strong> Across the 22 categories, frequency ranges from over 100 samples (Minor in-service problems) down to single-instance classes. Inverse-frequency class weighting (<code>class_weight='balanced'</code>) ensures the optimization algorithm penalizes misclassifications on rare failure categories.
+          </p>
+          <p>
+            <strong>4. Model Explainability & Limitations:</strong> Linear model weights enable transparent term contribution decomposition ($w_{k,j} \cdot x_j$). The system includes low-confidence safeguards when probabilities fall below 30% or when alternative categories exhibit close margins. Statistical predictions support technician decision-making and do not replace physical verification.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- VIEW 5: ABOUT PROJECT                                               -->
+    <!-- =================================================================== -->
+    <section id="view-about" class="view-section">
+      <div class="page-header">
+        <h2>Explainable NLP-Based Industrial Equipment Failure Prediction for Sustainable Maintenance</h2>
+        <p>Academic Capstone Project &bull; Intelligent Maintenance Report Analytics &bull; Sustainable Manufacturing</p>
+      </div>
+
+      <div class="card" style="margin-bottom: 1.75rem;">
+        <div class="card-header">
+          <div class="card-title">Project Overview</div>
+        </div>
+        <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: 1rem;">
+          In contemporary manufacturing, unscheduled machinery breakdowns cause severe economic losses, hazardous factory environments, and substantial material and energetic waste. While modern facilities collect rich unstructured maintenance logs, technicians frequently record symptoms as brief written observations. This application demonstrates an <strong>explainable, NLP-driven machine learning system</strong> that ingests technician reports, predicts equipment failure categories, explains word-level contributions, and generates formal downloadable PDF reports.
+        </p>
+        <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.65;">
+          Unlike black-box neural networks, this architecture utilizes <strong>calibrated Logistic Regression coefficients and TF-IDF term weights</strong> to provide full mathematical explainability, ensuring engineers understand exactly <em>which symptoms and phrases</em> influenced the diagnostic outcome before initiating physical repair procedures.
+        </p>
+      </div>
+
+      <!-- 3 Core Project Modules -->
+      <h3 style="font-size: 1.35rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-primary);">Core Project Modules</h3>
+      <div class="module-grid">
+        <!-- Module 1 -->
+        <div class="card">
+          <div class="badge badge-info" style="margin-bottom: 0.75rem;">Module 1</div>
+          <h4 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem;">Maintenance Report Processing & NLP Features</h4>
+          <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.55;">
+            Ingests natural English inspection observations. Expands contractions, normalizes technical abbreviations, strictly preserves negation tokens (no, not, never, unable, failed), and generates sublinear TF-IDF n-gram feature representations.
+          </p>
+        </div>
+
+        <!-- Module 2 -->
+        <div class="card">
+          <div class="badge badge-primary" style="margin-bottom: 0.75rem;">Module 2</div>
+          <h4 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem;">Machine Learning Equipment Failure Prediction</h4>
+          <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.55;">
+            Trains a Multinomial Logistic Regression classifier with balanced inverse-frequency class weights on the FMC-MWO2KG benchmark dataset, predicting 22 granular failure categories with probability scores and low-confidence warnings.
+          </p>
+        </div>
+
+        <!-- Module 3 -->
+        <div class="card">
+          <div class="badge badge-success" style="margin-bottom: 0.75rem;">Module 3</div>
+          <h4 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem;">Explainability, Guidance & PDF Reporting</h4>
+          <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.55;">
+            Decomposes linear decision scores into individual word contributions, pairs predictions with targeted inspection checklists, and compiles formal downloadable engineering PDF reports via ReportLab.
+          </p>
+        </div>
+      </div>
+
+      <!-- Sustainable Maintenance Pillars -->
+      <div class="card" style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
+        <div class="card-header">
+          <div class="card-title">Sustainable Maintenance Pillars</div>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; font-size: 0.88rem; color: var(--text-secondary);">
+          <div>
+            <strong>1. Reducing Unscheduled Downtime:</strong>
+            <p>Early triage of reported symptoms avoids catastrophic emergency shutdowns and minimizes production line halts.</p>
+          </div>
+          <div>
+            <strong>2. Extending Machinery Lifespan:</strong>
+            <p>Targeted inspection of identified subsystems (seals, bearings, cooling) prevents progressive degradation of heavy mechanical capital.</p>
+          </div>
+          <div>
+            <strong>3. Minimizing Resource Waste:</strong>
+            <p>Rapid identification of leakage, overheating, and electrical tripping limits fluid spillage and wasted electrical drive energy.</p>
+          </div>
+          <div>
+            <strong>4. Explainable Decision Support:</strong>
+            <p>Feature contribution transparency empowers human technicians to verify diagnostic reasoning before undertaking invasive interventions.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Technology Stack -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Technology Stack</div>
+        </div>
+        <div class="tech-badge-list">
+          <span class="tech-pill">Python 3.10+</span>
+          <span class="tech-pill">FastAPI</span>
+          <span class="tech-pill">Uvicorn</span>
+          <span class="tech-pill">Scikit-learn</span>
+          <span class="tech-pill">TF-IDF Vectorizer</span>
+          <span class="tech-pill">Logistic Regression</span>
+          <span class="tech-pill">Pandas</span>
+          <span class="tech-pill">NumPy</span>
+          <span class="tech-pill">ReportLab (PDF Generation)</span>
+          <span class="tech-pill">HTML5</span>
+          <span class="tech-pill">CSS3 (Modern Light Cloud Theme)</span>
+          <span class="tech-pill">Vanilla JavaScript (ES6+)</span>
+          <span class="tech-pill">Chart.js</span>
+          <span class="tech-pill">Render Cloud Ready</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div>
+        <strong>Industrial Failure Prediction</strong> &bull; Explainable NLP Academic Capstone
+      </div>
+      <div>
+        Dataset: FMC-MWO2KG Benchmark (FMC Technologies) &bull; Powered by FastAPI, Scikit-learn & ReportLab
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/app.js?v=2.2"></script>
+</body>
+</html>

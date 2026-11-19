@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: industrial-failure-prediction
+    runtime: python
+    buildCommand: "pip install -r requirements.txt && python scripts/train_model.py"
+    startCommand: "python run.py"
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: PYTHON_VERSION
+        value: 3.10.12
